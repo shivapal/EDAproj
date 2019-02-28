@@ -1,0 +1,54 @@
+pedDeathsRaw <- read.csv(file.choose())
+pedDeathsMod <- pedDeathsRaw[c(1:173),c(2:3)]
+pedDeathsMod
+
+pedDeathX <- c()
+year <- 2015
+week <- 40
+for(i in 1:35) {
+  pedDeathX[i] <- paste(year,"-",week)
+  week <- week+5
+  if(week > 52){
+    week <- week%%52;
+    year <- year+1
+  }
+}
+pedDeathX
+
+barplot(pedDeathsMod$NO..OF.DEATHS,names.arg = pedDeathsMod$WEEK.NUMBER, cex.names=.5, beside=T, main = "Pediatric Deaths", xlab = "Week", ylab = "Deaths", ylim=c(0,30), xlim= c(1,175), axis.lty=1)
+
+subTypeRaw <- read.csv(file.choose())
+subTypeRaw
+
+H3 <- subTypeRaw[c(6:8),]
+H1 <- subTypeRaw[c(5),]
+Victoria <- subTypeRaw[c(1:3),]
+Yamagata <- subTypeRaw[c(4),]
+
+H3Lab <- paste(H3$Sequence.Genetic.Group,"\n",H3$Distinct.count.of.Cdc.Id..,"\n",H3$X..of.Total.Distinct.count.of.Cdc.Id..)
+H1Lab <- paste(H1$Sequence.Genetic.Group,"\n",H1$Distinct.count.of.Cdc.Id..,"\n",H1$X..of.Total.Distinct.count.of.Cdc.Id..)
+VictoriaLab <- paste(Victoria$Sequence.Genetic.Group,"\n",Victoria$Distinct.count.of.Cdc.Id..,"\n",Victoria$X..of.Total.Distinct.count.of.Cdc.Id..)
+YamagataLab <- paste(Yamagata$Sequence.Genetic.Group,"\n",Yamagata$Distinct.count.of.Cdc.Id..,"\n",Yamagata$X..of.Total.Distinct.count.of.Cdc.Id..)
+
+
+pie(H3$Distinct.count.of.Cdc.Id.., labels=H3Lab)
+pie(H1$Distinct.count.of.Cdc.Id.., labels=H1Lab)
+pie(Victoria$Distinct.count.of.Cdc.Id.., labels=VictoriaLab)
+pie(Yamagata$Distinct.count.of.Cdc.Id.., labels=YamagataLab)
+
+USData<- read.csv(file.choose())
+stateData <- USData[c(865:917),c(1,4)]
+
+register_google(key = 'AIzaSyAzCWRarLpXhmd9Dx05XgXsdZetHXCVAog')
+library("dplyr")
+library("ggmap")
+library("maptools")
+library(maps)
+library(ggplot2)
+
+data <- data.frame(activity = as.numeric(stateData$ACTIVITY.LEVEL), state = tolower(stateData$STATENAME))
+usa <- map_data("state")
+join <- inner_join(data, usa, by ="region")
+ggplot() + 
+  geom_polygon(data = join, aes(fill=activity, x=long, y = lat, group = group), color = "red") + 
+  coord_fixed(1.3)
