@@ -11,8 +11,9 @@ ui <- fluidPage(
   titlePanel("Map"), 
   sidebarPanel(
     selectInput("variable", "Compare Maps:", 
-                c("CDC", "Twitter"))),
+                c("CDC vs #flu & #fluszn"= "all", "CDC vs #flu" = "flu", "CDC vs #fluszn"= "fluszn"))),
   mainPanel(
+    #textOutput("caption"),
     imageOutput("image1"),
     imageOutput("image2")
   )
@@ -20,19 +21,25 @@ ui <- fluidPage(
   
 
 server <- function(input,output){
-  mapTitle <- reactive(input$variable)
-  output$caption <- renderText({mapTitle()})
+  #mapTitle <- reactive(input$variable)
+  #output$caption <- renderText({mapTitle()})
+  
   #replace src on the next line for different files
   output$image1 <-renderImage(list(src="usData.png",contentType="image/png"),deleteFile = FALSE)
   output$image2 <- renderImage({
-    if (input$variable == "CDC") {
+    if (input$variable == "all") {
       return(list(
         src = "problem6Plot2.png",
         contentType = "image/png"
       ))
-    } else if (input$variable == "Twitter") {
+    } else if (input$variable == "flu") {
       return(list(
         src = "usData.png",
+        filetype = "image/png"
+      ))
+    } else if (input$variable == "fluszn") {
+      return(list(
+        src = "problem6Plot1.png",
         filetype = "image/png"
       ))
     }
