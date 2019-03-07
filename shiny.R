@@ -30,14 +30,14 @@ server <- function(input,output){
     if (input$variable == "all") {
       return(list(
         src = "problem6Plot2.png",
-        contentType = "image/png"
+        fileType = "image/png"
       ))
     } else if (input$variable == "flu") {
       return(list(
         src = "usData.png",
         filetype = "image/png"
       ))
-    } else if (input$variable == "fluszn") {
+    } else if (input$variable == "problem6Plot1.png") {
       return(list(
         src = "problem6Plot1.png",
         filetype = "image/png"

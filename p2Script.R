@@ -5,21 +5,66 @@ pedDeathsMod
 pedDeathX <- c()
 year <- 2015
 week <- 40
-for(i in 1:35) {
-  pedDeathX[i] <- paste(year,"-",week)
-  week <- week+5
+for(i in 1:173) {
+  if((i-1)%%5==0){
+    pedDeathX[i] <- paste(year,"-",week)
+  } else {
+    pedDeathX[i] <- ""
+  }
+  
+  week <- week+1
   if(week > 52){
-    week <- week%%52;
+    week <- week%%52
     year <- year+1
   }
 }
 pedDeathX
 
-barplot(pedDeathsMod$NO..OF.DEATHS,names.arg = pedDeathsMod$WEEK.NUMBER, cex.names=.5, beside=T, main = "Pediatric Deaths", xlab = "Week", ylab = "Deaths", ylim=c(0,30), xlim= c(1,175), axis.lty=1)
+
+lab <- rep("", length(pedDeathsMod$WEEK.NUMBER))
+lab <- pedDeathX
+
+
+barplot(pedDeathsMod$NO..OF.DEATHS,names.arg = lab,
+        cex.names=.5, beside=T, main = "Pediatric Deaths", xlab = "Week",
+        ylab = "Deaths", ylim=c(0,30), xlim= c(1,175), axis.lty=1, las=2)
 
 subTypeRaw <- read.csv(file.choose())
-subTypeRaw
 
+totalDF <-read.csv(file.choose())
+
+H1Tot<-0
+for (i in totalDF$A..2009.H1N1.) {
+  H1Tot <- H1Tot + i
+}
+
+H3Tot<-0
+for (i in totalDF$A..H3.) {
+  H3Tot <- H3Tot + i
+}
+
+ATot<-0
+for (i in totalDF$A..Subtyping.not.Performed.) {
+  ATot <- ATot + i
+}
+
+BTot<-0
+for (i in totalDF$B) {
+  BTot <- BTot + i
+}
+
+BVicTot <- 0
+for (i in totalDF$BVic) {
+  BVicTot <- BVicTot + i
+}
+
+BYamTot<-0
+for (i in totalDF$BYam) {
+  BYamTot <- BYamTot + i
+}
+totalVals <-c(H1Tot, H3Tot, ATot, BTot, BVicTot, BYamTot)
+pie(totalVals,labels=totalVals)
+  
 H3 <- subTypeRaw[c(6:8),]
 H1 <- subTypeRaw[c(5),]
 Victoria <- subTypeRaw[c(1:3),]
