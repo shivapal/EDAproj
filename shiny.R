@@ -13,7 +13,7 @@ ui <- fluidPage(
     selectInput("variable", "Compare Maps:", 
                 c("CDC vs #flu & #fluszn"= "all", "CDC vs #flu" = "flu", "CDC vs #fluszn"= "fluszn"))),
   mainPanel(
-    #textOutput("caption"),
+    textOutput("caption"),
     imageOutput("image1"),
     imageOutput("image2")
   )
@@ -21,10 +21,6 @@ ui <- fluidPage(
   
 
 server <- function(input,output){
-  #mapTitle <- reactive(input$variable)
-  #output$caption <- renderText({mapTitle()})
-  
-  #replace src on the next line for different files
   output$image1 <-renderImage(list(src="usData.png",contentType="image/png"),deleteFile = FALSE)
   output$image2 <- renderImage({
     if (input$variable == "all") {
@@ -45,5 +41,11 @@ server <- function(input,output){
     }
     
   }, deleteFile = FALSE)
+  output$caption <- renderText(
+    if (input$variable == "all") {"all"
+    } else if (input$variable == "flu") {"flu"
+    } else if (input$variable == "problem6Plot1.png") {"fluszn"
+    }
+  )
 }
 shinyApp(ui,server)
