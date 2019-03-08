@@ -32,9 +32,13 @@ server <- function(input,output){
     }, deleteFile=FALSE)
     output$description <- renderText(
       if (input$var == "Main"){
-        "Based on the collection of tweets compared with the map from CDC, we can see that we had a large amount of tweets\n coming from Texas."
+        "Based on the collection of tweets compared with the map from the CDC, a large amount of tweets\n are from the states with the greatest population,
+         namely California, Texas, and New York. In contrast, the area with the highest level of Flu activity were in the South, interestingly centered around Texas. Texas may have
+        generated so many matching tweets not only because of its large population, but also because of its high level of Flu activity."
       }else if (input$var == "Second"){
-        "The key word we used to collect tweets was Flu and FluSeason. Majority of the tweets from our map are from Californa."
+        "The key words we used to collect the most tweets were #Flu and #FluSeason. This map again demonstrates a similar spatial distribution as our total collection of tweets,
+         largely because these keywords were responsible for most of the data collected. California, the state with the largest population, had the most matching tweets of any state. 
+        The next step in this analysis would be not to only compare total amount of tweets versus Flu activity, but rather tweets per capita versus Flu activity."
       }
     )
 }
