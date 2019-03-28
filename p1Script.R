@@ -99,7 +99,7 @@ points(visit.x,visit.y, col="red", pch=36)
 library("ggmap")
 library("maptools")
 library(maps)
-register_google(key = 'AIzaSyAzCWRarLpXhmd9Dx05XgXsdZetHXCVAog')
+register_google(key = '')
 
 visited <- c("SFO", "New York", "Buffalo", "Dallas, TX")
 ll.visited <- geocode(visited)

@@ -84,7 +84,7 @@ pie(Yamagata$Distinct.count.of.Cdc.Id.., labels=YamagataLab)
 USData<- read.csv(file.choose())
 stateData <- USData[c(865:917),c(1,4)]
 
-register_google(key = 'AIzaSyAzCWRarLpXhmd9Dx05XgXsdZetHXCVAog')
+register_google(key = '')
 library("dplyr")
 library("ggmap")
 library("maptools")
